@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Darajalar</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      color: #222;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 30px;
+    }
+
+    .levels-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .level {
+      background: white;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .level:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+    }
+
+    .level img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .locked {
+      opacity: 0.4;
+      filter: grayscale(1);
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 30px;
+      background: #4b6cb7;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #182848;
+    }
+  </style>
+</head>
+<body>
+  <h1>📈 Darajalar</h1>
+  <p>Bu yerda sizning erishgan yutuqlaringizni ko‘rasiz!</p>
+
+  <div id="levels" class="levels-container"></div>
+
+  <a href="index.html" class="back-btn">⬅️ Asosiy sahifaga qaytish</a>
+
+  <script>
+    const levels = [
+      { name: "Boshlovchi", points: 0, img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
+      { name: "O‘rganuvchi", points: 50, img: "https://cdn-icons-png.flaticon.com/512/2921/2921222.png" },
+      { name: "Yangi Iqtidor", points: 100, img: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" },
+      { name: "Yaxshi Talaba", points: 200, img: "https://cdn-icons-png.flaticon.com/512/3135/3135789.png" },
+      { name: "Hisobchi", points: 300, img: "https://cdn-icons-png.flaticon.com/512/2829/2829726.png" },
+      { name: "Matematik", points: 400, img: "https://cdn-icons-png.flaticon.com/512/2830/2830229.png" },
+      { name: "Ustoz", points: 500, img: "https://cdn-icons-png.flaticon.com/512/3135/3135784.png" },
+      { name: "Aqlli Bola", points: 600, img: "https://cdn-icons-png.flaticon.com/512/921/921071.png" },
+      { name: "A’lochi", points: 700, img: "https://cdn-icons-png.flaticon.com/512/2583/2583344.png" },
+      { name: "Qiziqqon", points: 800, img: "https://cdn-icons-png.flaticon.com/512/1828/1828911.png" },
+      { name: "Kichik Ustoz", points: 900, img: "https://cdn-icons-png.flaticon.com/512/1995/1995574.png" },
+      { name: "Qobiliyatli", points: 1000, img: "https://cdn-icons-png.flaticon.com/512/765/765613.png" },
+      { name: "Intiluvchan", points: 1200, img: "https://cdn-icons-png.flaticon.com/512/1998/1998755.png" },
+      { name: "Aqliy Yulduz", points: 1500, img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
+      { name: "Hisob Ustasi", points: 1800, img: "https://cdn-icons-png.flaticon.com/512/2829/2829733.png" },
+      { name: "Matematik Qahramon", points: 2100, img: "https://cdn-icons-png.flaticon.com/512/3135/3135773.png" },
+      { name: "Super Talaba", points: 2400, img: "https://cdn-icons-png.flaticon.com/512/4899/4899778.png" },
+      { name: "Bilim Sohibi", points: 2800, img: "https://cdn-icons-png.flaticon.com/512/3242/3242257.png" },
+      { name: "O‘qish Qiroli", points: 3200, img: "https://cdn-icons-png.flaticon.com/512/3135/3135772.png" },
+      { name: "Hisob Qiroli", points: 4000, img: "https://cdn-icons-png.flaticon.com/512/3135/3135787.png" },
+    ];
+
+    const userData = JSON.parse(localStorage.getItem('userData')) || { points: 0 };
+    const userPoints = userData.points || 0;
+
+    const container = document.getElementById('levels');
+
+    levels.forEach(lv => {
+      const div = document.createElement('div');
+      div.className = "level" + (userPoints < lv.points ? " locked" : "");
+      div.innerHTML = `
+        <img src="${lv.img}" alt="${lv.name}">
+        <h3>${lv.name}</h3>
+        <p>${lv.points} ball</p>
+      `;
+      container.appendChild(div);
+    });
+  </script>
+</body>
+</html>

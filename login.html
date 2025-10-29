@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kirish yoki Ro‘yxatdan o‘tish</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #fff;
+}
+
+.container {
+  background: rgba(255,255,255,0.15);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  width: 320px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
+}
+
+h1 {
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px #00f0ff;
+}
+
+input {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  text-align: center;
+  font-size: 16px;
+}
+
+button {
+  width: 85%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #00ffcc, #0066ff);
+  color: #fff;
+  font-size: 17px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+#msg {
+  margin-top: 15px;
+  font-size: 15px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Login / Register</h1>
+  <input type="text" id="name" placeholder="Ismingizni kiriting">
+  <input type="password" id="pass" placeholder="Parol kiriting">
+  <input type="text" id="class" placeholder="Sinf (masalan: 1A)">
+  <button onclick="login()">🔑 Login</button>
+  <button onclick="register()">📝 Register</button>
+  <div id="msg"></div>
+</div>
+
+<script>
+// Avto login
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+if (currentUser) {
+  window.location.href = "index.html";
+}
+
+function login() {
+  let name = document.getElementById("name").value.trim();
+  let pass = document.getElementById("pass").value.trim();
+  let clas = document.getElementById("class").value.trim();
+
+  if (!name || !pass || !clas) {
+    showMsg("Barcha maydonlarni to‘ldiring!", "red");
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("users") || "[]");
+  let user = users.find(u => u.name === name && u.pass === pass && u.class === clas);
+
+  if (user) {
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    showMsg("Tizimga kirdingiz ✅", "lightgreen");
+    setTimeout(() => window.location.href = "index.html", 1000);
+  } else {
+    showMsg("Bunday foydalanuvchi topilmadi ❌", "red");
+  }
+}
+
+function register() {
+  let name = document.getElementById("name").value.trim();
+  let pass = document.getElementById("pass").value.trim();
+  let clas = document.getElementById("class").value.trim();
+
+  if (!name || !pass || !clas) {
+    showMsg("Barcha maydonlarni to‘ldiring!", "red");
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("users") || "[]");
+  let exists = users.find(u => u.name === name && u.class === clas);
+  if (exists) {
+    showMsg("Bu foydalanuvchi allaqachon mavjud ⚠️", "orange");
+    return;
+  }
+
+  let newUser = { name, pass, class: clas, score: 0, coins: 0, avatar: "", badge: "" };
+  users.push(newUser);
+  localStorage.setItem("users", JSON.stringify(users));
+  localStorage.setItem("currentUser", JSON.stringify(newUser));
+  showMsg("Ro‘yxatdan o‘tildi ✅", "lightgreen");
+  setTimeout(() => window.location.href = "index.html", 1000);
+}
+
+function showMsg(text, color) {
+  let msg = document.getElementById("msg");
+  msg.style.color = color;
+  msg.innerText = text;
+}
+</script>
+
+</body>
+</html>

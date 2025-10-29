@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      text-align: center;
+      padding: 20px;
+      color: #222;
+    }
+    h1 {
+      font-size: 1.8em;
+    }
+    .question {
+      background: white;
+      margin: 15px auto;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      max-width: 400px;
+    }
+    button {
+      background: #4b6cb7;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #182848;
+    }
+  </style>
+</head>
+<body>
+  <h1>1-sinf matematik test 🧮</h1>
+  <div id="quiz"></div>
+  <button id="finishBtn" style="display:none;">✅ Tugatish</button>
+
+  <script>
+    const questions = [];
+    for(let i=0;i<50;i++){
+      let a = Math.floor(Math.random()*10)+1;
+      let b = Math.floor(Math.random()*10)+1;
+      questions.push({q:`${a} + ${b} = ?`, ans:a+b});
+    }
+    for(let i=0;i<50;i++){
+      let a = Math.floor(Math.random()*20)+1;
+      let b = Math.floor(Math.random()*a);
+      questions.push({q:`${a} - ${b} = ?`, ans:a-b});
+    }
+
+    const quizDiv = document.getElementById('quiz');
+    const selected = [];
+    const random10 = questions.sort(()=>0.5-Math.random()).slice(0,10);
+    random10.forEach((item, index)=>{
+      const div = document.createElement('div');
+      div.className='question';
+      div.innerHTML = `
+        <p>${index+1}. ${item.q}</p>
+        <input type="number" id="ans${index}" placeholder="Javob">
+      `;
+      quizDiv.appendChild(div);
+    });
+
+    const finishBtn = document.getElementById('finishBtn');
+    finishBtn.style.display = 'block';
+    finishBtn.onclick = ()=>{
+      let score = 0;
+      random10.forEach((item,i)=>{
+        const val = document.getElementById('ans'+i).value;
+        if(Number(val)===item.ans) score+=5;
+      });
+      alert(`Siz ${score} ball to‘pladingiz!`);
+      const data = JSON.parse(localStorage.getItem('userData')) || { points: 0 };
+      data.points = (data.points || 0) + score;
+      localStorage.setItem('userData', JSON.stringify(data));
+      location.href='index.html';
+    }
+  </script>
+</body>
+</html>

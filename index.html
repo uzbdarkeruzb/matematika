@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asosiy sahifa</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      color: #333;
+    }
+    h1 {
+      font-size: 2em;
+      margin-top: 10px;
+    }
+    .profile {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: inline-block;
+      margin-bottom: 30px;
+    }
+    .profile img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+    .btns {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    a.btn {
+      background: #4b6cb7;
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 1.1em;
+      transition: 0.3s;
+    }
+    a.btn:hover {
+      background: #182848;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="profile">
+    <img id="levelImg" src="" alt="Daraja rasmi" />
+    <h1 id="levelName">Daraja: Boshlovchi</h1>
+    <p id="points">Ball: 0</p>
+  </div>
+
+  <div class="btns">
+    <a href="test.html" class="btn">🧮 Test ishlash</a>
+    <a href="profile.html" class="btn">🏆 Darajalar</a>
+  </div>
+
+  <script>
+    const levels = [
+      { name: "Boshlovchi", points: 0, img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
+      { name: "O‘rganuvchi", points: 50, img: "https://cdn-icons-png.flaticon.com/512/2921/2921222.png" },
+      { name: "Yangi Iqtidor", points: 100, img: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" },
+      { name: "Yaxshi Talaba", points: 200, img: "https://cdn-icons-png.flaticon.com/512/3135/3135789.png" },
+      { name: "Hisobchi", points: 300, img: "https://cdn-icons-png.flaticon.com/512/2829/2829726.png" },
+      { name: "Matematik", points: 400, img: "https://cdn-icons-png.flaticon.com/512/2830/2830229.png" },
+      { name: "Ustoz", points: 500, img: "https://cdn-icons-png.flaticon.com/512/3135/3135784.png" },
+      { name: "Aqlli Bola", points: 600, img: "https://cdn-icons-png.flaticon.com/512/921/921071.png" },
+      { name: "A’lochi", points: 700, img: "https://cdn-icons-png.flaticon.com/512/2583/2583344.png" },
+      { name: "Qiziqqon", points: 800, img: "https://cdn-icons-png.flaticon.com/512/1828/1828911.png" },
+      { name: "Kichik Ustoz", points: 900, img: "https://cdn-icons-png.flaticon.com/512/1995/1995574.png" },
+      { name: "Qobiliyatli", points: 1000, img: "https://cdn-icons-png.flaticon.com/512/765/765613.png" },
+      { name: "Intiluvchan", points: 1200, img: "https://cdn-icons-png.flaticon.com/512/1998/1998755.png" },
+      { name: "Aqliy Yulduz", points: 1500, img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
+      { name: "Hisob Ustasi", points: 1800, img: "https://cdn-icons-png.flaticon.com/512/2829/2829733.png" },
+      { name: "Matematik Qahramon", points: 2100, img: "https://cdn-icons-png.flaticon.com/512/3135/3135773.png" },
+      { name: "Super Talaba", points: 2400, img: "https://cdn-icons-png.flaticon.com/512/4899/4899778.png" },
+      { name: "Bilim Sohibi", points: 2800, img: "https://cdn-icons-png.flaticon.com/512/3242/3242257.png" },
+      { name: "O‘qish Qiroli", points: 3200, img: "https://cdn-icons-png.flaticon.com/512/3135/3135772.png" },
+      { name: "Hisob Qiroli", points: 4000, img: "https://cdn-icons-png.flaticon.com/512/3135/3135787.png" },
+    ];
+
+    const userData = JSON.parse(localStorage.getItem('userData')) || { points: 0 };
+    const userPoints = userData.points || 0;
+
+    document.getElementById('points').textContent = `Ball: ${userPoints}`;
+
+    let currentLevel = levels[0];
+    for (let lv of levels) {
+      if (userPoints >= lv.points) currentLevel = lv;
+    }
+
+    document.getElementById('levelName').textContent = `Daraja: ${currentLevel.name}`;
+    document.getElementById('levelImg').src = currentLevel.img;
+  </script>
+</body>
+</html>
