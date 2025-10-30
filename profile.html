@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Darajalar</title>
+<title>Profil & Darajalar</title>
 <style>
 body {
   font-family:'Poppins', sans-serif;
@@ -14,6 +14,24 @@ body {
   text-align:center;
 }
 h1{margin-bottom:20px;}
+.profile-container{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+  margin-bottom:30px;
+  flex-wrap: wrap;
+}
+.profile-img{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  border:3px solid #4b6cb7;
+  object-fit:cover;
+}
+.profile-info{
+  text-align:left;
+}
 .levels-container{
   display:grid;
   grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
@@ -28,6 +46,7 @@ h1{margin-bottom:20px;}
   width:100%;
   max-width:140px;
   text-align:center;
+  transition:0.3s;
 }
 .level-card img{
   width:60px;
@@ -41,6 +60,11 @@ h1{margin-bottom:20px;}
 .level-points{
   font-size:0.9em;
   color:#555;
+}
+.current-level{
+  border: 3px solid #ff9800;
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(255,152,0,0.5);
 }
 .back-btn{
   display:inline-block;
@@ -56,13 +80,24 @@ h1{margin-bottom:20px;}
 </style>
 </head>
 <body>
-<h1>🏆 Darajalar</h1>
+
+<h1>👤 Profil & 🏆 Darajalar</h1>
+
+<div class="profile-container">
+  <img src="" id="profileImg" class="profile-img" alt="Profil Rasm">
+  <div class="profile-info">
+    <div id="profileName">Ism: ---</div>
+    <div id="profilePoints">Ball: 0</div>
+    <div id="profileLevel">Daraja: ---</div>
+  </div>
+</div>
 
 <div class="levels-container" id="levelsContainer"></div>
 
 <a href="index.html" class="back-btn">⬅ Orqaga</a>
 
 <script>
+// 20 daraja ma'lumotlari
 const levels = [
   { name: "Boshlovchi", points: 100, img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
   { name: "O‘rganuvchi", points: 150, img: "https://cdn-icons-png.flaticon.com/512/2921/2921222.png" },
@@ -86,11 +121,22 @@ const levels = [
   { name: "Hisob Qiroli", points: 2000, img: "https://cdn-icons-png.flaticon.com/512/3135/3135787.png" }
 ];
 
-const userData = JSON.parse(localStorage.getItem('userData')) || { points: 100 };
-const userPoints = userData.points;
+// Foydalanuvchi ma'lumotlari localStoragedan
+const userData = JSON.parse(localStorage.getItem('userData')) || { name:'O‘quvchi', img:'https://cdn-icons-png.flaticon.com/512/149/149071.png', points:100 };
 
+document.getElementById('profileName').textContent = `Ism: ${userData.name}`;
+document.getElementById('profilePoints').textContent = `Ball: ${userData.points}`;
+let userLevel = levels[0].name;
+levels.forEach(lv=>{
+  if(userData.points >= lv.points){
+    userLevel = lv.name;
+  }
+});
+document.getElementById('profileLevel').textContent = `Daraja: ${userLevel}`;
+document.getElementById('profileImg').src = userData.img;
+
+// Darajalarni ko'rsatish
 const container = document.getElementById('levelsContainer');
-
 levels.forEach(lv=>{
   const card = document.createElement('div');
   card.className='level-card';
@@ -99,11 +145,15 @@ levels.forEach(lv=>{
     <div class="level-name">${lv.name}</div>
     <div class="level-points">${lv.points} ball</div>
   `;
-  if(userPoints < lv.points){
+  if(userData.points < lv.points){
     card.style.opacity='0.4';
+  }
+  if(userData.points >= lv.points){
+    card.classList.add('current-level');
   }
   container.appendChild(card);
 });
 </script>
+
 </body>
 </html>
