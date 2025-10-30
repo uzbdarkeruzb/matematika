@@ -3,77 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Test</title>
+<title>Darajalar</title>
 <style>
 body {
   font-family:'Poppins', sans-serif;
-  background:linear-gradient(135deg,#89f7fe,#66a6ff);
-  text-align:center;
+  background: linear-gradient(135deg, #fdfbfb, #ebedee);
+  margin:0;
   padding:20px;
   color:#222;
+  text-align:center;
 }
-h1{font-size:1.8em;}
-.question{
+h1{margin-bottom:20px;}
+.levels-container{
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
+  gap:15px;
+  justify-items:center;
+}
+.level-card{
   background:white;
-  margin:15px auto;
-  padding:15px;
   border-radius:15px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
-  max-width:400px;
+  padding:10px;
+  box-shadow:0 4px 8px rgba(0,0,0,0.2);
+  width:100%;
+  max-width:140px;
+  text-align:center;
 }
-input{
-  width:80%;
-  padding:8px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  font-size:1em;
+.level-card img{
+  width:60px;
+  height:60px;
+  margin-bottom:8px;
 }
-button{
-  background:#4b6cb7;color:white;border:none;border-radius:10px;padding:10px 20px;margin:10px;cursor:pointer;transition:.3s;
+.level-name{
+  font-weight:bold;
+  margin-bottom:5px;
 }
-button:hover{background:#182848;}
+.level-points{
+  font-size:0.9em;
+  color:#555;
+}
+.back-btn{
+  display:inline-block;
+  margin-top:20px;
+  background:#4b6cb7;
+  color:white;
+  text-decoration:none;
+  padding:10px 20px;
+  border-radius:12px;
+  transition:0.3s;
+}
+.back-btn:hover{background:#182848;}
 </style>
 </head>
 <body>
-<h1>1-sinf matematik test 🧮</h1>
-<div id="quiz"></div>
-<button id="finishBtn">✅ Tugatish</button>
+<h1>🏆 Darajalar</h1>
+
+<div class="levels-container" id="levelsContainer"></div>
+
+<a href="index.html" class="back-btn">⬅ Orqaga</a>
 
 <script>
-const questions=[];
-for(let i=0;i<50;i++){
-  let a=Math.floor(Math.random()*10)+1;
-  let b=Math.floor(Math.random()*10)+1;
-  questions.push({q:`${a}+${b}=?`,ans:a+b});
-}
-for(let i=0;i<50;i++){
-  let a=Math.floor(Math.random()*20)+1;
-  let b=Math.floor(Math.random()*a);
-  questions.push({q:`${a}-${b}=?`,ans:a-b});
-}
+const levels = [
+  { name: "Boshlovchi", points: 100, img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
+  { name: "O‘rganuvchi", points: 150, img: "https://cdn-icons-png.flaticon.com/512/2921/2921222.png" },
+  { name: "Yangi Iqtidor", points: 200, img: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" },
+  { name: "Yaxshi Talaba", points: 300, img: "https://cdn-icons-png.flaticon.com/512/3135/3135789.png" },
+  { name: "Hisobchi", points: 400, img: "https://cdn-icons-png.flaticon.com/512/2829/2829726.png" },
+  { name: "Matematik", points: 500, img: "https://cdn-icons-png.flaticon.com/512/2830/2830229.png" },
+  { name: "Ustoz", points: 600, img: "https://cdn-icons-png.flaticon.com/512/3135/3135784.png" },
+  { name: "Aqlli Bola", points: 700, img: "https://cdn-icons-png.flaticon.com/512/921/921071.png" },
+  { name: "A’lochi", points: 800, img: "https://cdn-icons-png.flaticon.com/512/2583/2583344.png" },
+  { name: "Qiziqqon", points: 900, img: "https://cdn-icons-png.flaticon.com/512/1828/1828911.png" },
+  { name: "Kichik Ustoz", points: 1000, img: "https://cdn-icons-png.flaticon.com/512/1995/1995574.png" },
+  { name: "Qobiliyatli", points: 1100, img: "https://cdn-icons-png.flaticon.com/512/765/765613.png" },
+  { name: "Intiluvchan", points: 1200, img: "https://cdn-icons-png.flaticon.com/512/1998/1998755.png" },
+  { name: "Aqliy Yulduz", points: 1300, img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
+  { name: "Hisob Ustasi", points: 1400, img: "https://cdn-icons-png.flaticon.com/512/2829/2829733.png" },
+  { name: "Matematik Qahramon", points: 1500, img: "https://cdn-icons-png.flaticon.com/512/3135/3135773.png" },
+  { name: "Super Talaba", points: 1600, img: "https://cdn-icons-png.flaticon.com/512/4899/4899778.png" },
+  { name: "Bilim Sohibi", points: 1700, img: "https://cdn-icons-png.flaticon.com/512/3242/3242257.png" },
+  { name: "O‘qish Qiroli", points: 1800, img: "https://cdn-icons-png.flaticon.com/512/3135/3135772.png" },
+  { name: "Hisob Qiroli", points: 2000, img: "https://cdn-icons-png.flaticon.com/512/3135/3135787.png" }
+];
 
-const quizDiv=document.getElementById('quiz');
-const random10=questions.sort(()=>0.5-Math.random()).slice(0,10);
+const userData = JSON.parse(localStorage.getItem('userData')) || { points: 100 };
+const userPoints = userData.points;
 
-random10.forEach((item,index)=>{
-  const div=document.createElement('div');
-  div.className='question';
-  div.innerHTML=`<p>${index+1}. ${item.q}</p><input type="number" id="ans${index}" placeholder="Javob">`;
-  quizDiv.appendChild(div);
+const container = document.getElementById('levelsContainer');
+
+levels.forEach(lv=>{
+  const card = document.createElement('div');
+  card.className='level-card';
+  card.innerHTML = `
+    <img src="${lv.img}" alt="${lv.name}">
+    <div class="level-name">${lv.name}</div>
+    <div class="level-points">${lv.points} ball</div>
+  `;
+  if(userPoints < lv.points){
+    card.style.opacity='0.4';
+  }
+  container.appendChild(card);
 });
-
-document.getElementById('finishBtn').onclick=()=>{
-  let score=0;
-  random10.forEach((item,i)=>{
-    const val=document.getElementById('ans'+i).value;
-    if(Number(val)===item.ans) score+=1;
-  });
-  alert(`Siz ${score} ball to‘pladingiz!`);
-  const data=JSON.parse(localStorage.getItem('userData')) || { points: 100 };
-  data.points = (data.points || 100)+score;
-  localStorage.setItem('userData',JSON.stringify(data));
-  location.href='index.html';
-}
 </script>
 </body>
 </html>
