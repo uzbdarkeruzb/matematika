@@ -90,28 +90,28 @@ h1{
 </div>
 
 <script>
-// 20 daraja ma'lumotlari va rasm URL
+// 20 daraja ma'lumotlari va ishlaydigan rasm URL
 const levels = [
-  { name: "Boshlovchi", points: 100, img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
-  { name: "O‘rganuvchi", points: 150, img: "https://cdn-icons-png.flaticon.com/512/2921/2921222.png" },
-  { name: "Yangi Iqtidor", points: 200, img: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" },
-  { name: "Yaxshi Talaba", points: 300, img: "https://cdn-icons-png.flaticon.com/512/3135/3135789.png" },
-  { name: "Hisobchi", points: 400, img: "https://cdn-icons-png.flaticon.com/512/2829/2829726.png" },
-  { name: "Matematik", points: 500, img: "https://cdn-icons-png.flaticon.com/512/2830/2830229.png" },
-  { name: "Ustoz", points: 600, img: "https://cdn-icons-png.flaticon.com/512/3135/3135784.png" },
-  { name: "Aqlli Bola", points: 700, img: "https://cdn-icons-png.flaticon.com/512/921/921071.png" },
-  { name: "A’lochi", points: 800, img: "https://cdn-icons-png.flaticon.com/512/2583/2583344.png" },
-  { name: "Qiziqqon", points: 900, img: "https://cdn-icons-png.flaticon.com/512/1828/1828911.png" },
-  { name: "Kichik Ustoz", points: 1000, img: "https://cdn-icons-png.flaticon.com/512/1995/1995574.png" },
-  { name: "Qobiliyatli", points: 1100, img: "https://cdn-icons-png.flaticon.com/512/765/765613.png" },
-  { name: "Intiluvchan", points: 1200, img: "https://cdn-icons-png.flaticon.com/512/1998/1998755.png" },
-  { name: "Aqliy Yulduz", points: 1300, img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
-  { name: "Hisob Ustasi", points: 1400, img: "https://cdn-icons-png.flaticon.com/512/2829/2829733.png" },
-  { name: "Matematik Qahramon", points: 1500, img: "https://cdn-icons-png.flaticon.com/512/3135/3135773.png" },
-  { name: "Super Talaba", points: 1600, img: "https://cdn-icons-png.flaticon.com/512/4899/4899778.png" },
-  { name: "Bilim Sohibi", points: 1700, img: "https://cdn-icons-png.flaticon.com/512/3242/3242257.png" },
-  { name: "O‘qish Qiroli", points: 1800, img: "https://cdn-icons-png.flaticon.com/512/3135/3135772.png" },
-  { name: "Hisob Qiroli", points: 2000, img: "https://cdn-icons-png.flaticon.com/512/3135/3135787.png" }
+  { name: "Boshlovchi", points: 100, img: "https://images.unsplash.com/photo-1551817958-7a1c5a267ef2?fit=crop&w=100&h=100" },
+  { name: "O‘rganuvchi", points: 150, img: "https://images.unsplash.com/photo-1551218372-67a69d1e4c5e?fit=crop&w=100&h=100" },
+  { name: "Yangi Iqtidor", points: 200, img: "https://images.unsplash.com/photo-1551218372-67a69d1e4c5e?fit=crop&w=100&h=100" },
+  { name: "Yaxshi Talaba", points: 300, img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?fit=crop&w=100&h=100" },
+  { name: "Hisobchi", points: 400, img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?fit=crop&w=100&h=100" },
+  { name: "Matematik", points: 500, img: "https://images.unsplash.com/photo-1581092795360-50aa19c0c256?fit=crop&w=100&h=100" },
+  { name: "Ustoz", points: 600, img: "https://images.unsplash.com/photo-1509474520651-54d24b7d7de2?fit=crop&w=100&h=100" },
+  { name: "Aqlli Bola", points: 700, img: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?fit=crop&w=100&h=100" },
+  { name: "A’lochi", points: 800, img: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?fit=crop&w=100&h=100" },
+  { name: "Qiziqqon", points: 900, img: "https://images.unsplash.com/photo-1473671291457-48d2be5b7c48?fit=crop&w=100&h=100" },
+  { name: "Kichik Ustoz", points: 1000, img: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?fit=crop&w=100&h=100" },
+  { name: "Qobiliyatli", points: 1100, img: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?fit=crop&w=100&h=100" },
+  { name: "Intiluvchan", points: 1200, img: "https://images.unsplash.com/photo-1485217988980-11786ced9454?fit=crop&w=100&h=100" },
+  { name: "Aqliy Yulduz", points: 1300, img: "https://images.unsplash.com/photo-1485217988980-11786ced9454?fit=crop&w=100&h=100" },
+  { name: "Hisob Ustasi", points: 1400, img: "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?fit=crop&w=100&h=100" },
+  { name: "Matematik Qahramon", points: 1500, img: "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?fit=crop&w=100&h=100" },
+  { name: "Super Talaba", points: 1600, img: "https://images.unsplash.com/photo-1494891848038-9b5f032d5f2a?fit=crop&w=100&h=100" },
+  { name: "Bilim Sohibi", points: 1700, img: "https://images.unsplash.com/photo-1494891848038-9b5f032d5f2a?fit=crop&w=100&h=100" },
+  { name: "O‘qish Qiroli", points: 1800, img: "https://images.unsplash.com/photo-1496017920042-1f39971ef1ef?fit=crop&w=100&h=100" },
+  { name: "Hisob Qiroli", points: 2000, img: "https://images.unsplash.com/photo-1496017920042-1f39971ef1ef?fit=crop&w=100&h=100" }
 ];
 
 // Foydalanuvchi ma'lumotlari
