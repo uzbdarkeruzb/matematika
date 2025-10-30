@@ -17,6 +17,33 @@ h1{
   margin-bottom:30px;
   text-shadow: 2px 2px 4px #aaa;
 }
+.profile-summary{
+  margin-bottom:30px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.profile-img{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  border:3px solid #fff;
+  object-fit:cover;
+}
+.profile-info div{
+  font-size:1.2em;
+  font-weight:bold;
+}
+.level-badge{
+  margin-left:10px;
+  background:#ff9800;
+  padding:5px 10px;
+  border-radius:12px;
+  color:white;
+  font-size:0.9em;
+}
 .btns{
   display:flex;
   flex-direction:column;
@@ -35,32 +62,13 @@ h1{
 }
 .test-btn{background:#4CAF50;}
 .profile-btn{background:#2196F3;}
-.back-btn{background:#f44336;}
 .btn:hover{opacity:0.8;}
-.profile-summary{
-  margin-top:20px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:15px;
-}
-.profile-summary img{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  border:3px solid #fff;
-}
-.profile-summary div{
-  font-size:1.1em;
-  font-weight:bold;
-}
-.level-badge{
-  margin-left:10px;
-  background:#ff9800;
-  padding:5px 10px;
-  border-radius:12px;
-  color:white;
-  font-size:0.9em;
+@media(max-width:600px){
+  .profile-summary{
+    flex-direction:column;
+  }
+  .profile-img{width:80px;height:80px;}
+  .btn{padding:15px 30px;font-size:1em;}
 }
 </style>
 </head>
@@ -69,8 +77,8 @@ h1{
 <h1>🧮 Matematika 1-sinf</h1>
 
 <div class="profile-summary">
-  <img id="profileImg" src="" alt="Profil Rasm">
-  <div>
+  <img id="profileImg" class="profile-img" src="" alt="Daraja Rasm">
+  <div class="profile-info">
     <div id="profileName">Ism: ---</div>
     <div id="profilePoints">Ball: 0 <span id="profileLevel" class="level-badge">Daraja</span></div>
   </div>
@@ -82,45 +90,50 @@ h1{
 </div>
 
 <script>
-// Foydalanuvchi ma'lumotlari localStorage dan
+// 20 daraja ma'lumotlari va rasm URL
 const levels = [
-  { name: "Boshlovchi", points: 100 },
-  { name: "O‘rganuvchi", points: 150 },
-  { name: "Yangi Iqtidor", points: 200 },
-  { name: "Yaxshi Talaba", points: 300 },
-  { name: "Hisobchi", points: 400 },
-  { name: "Matematik", points: 500 },
-  { name: "Ustoz", points: 600 },
-  { name: "Aqlli Bola", points: 700 },
-  { name: "A’lochi", points: 800 },
-  { name: "Qiziqqon", points: 900 },
-  { name: "Kichik Ustoz", points: 1000 },
-  { name: "Qobiliyatli", points: 1100 },
-  { name: "Intiluvchan", points: 1200 },
-  { name: "Aqliy Yulduz", points: 1300 },
-  { name: "Hisob Ustasi", points: 1400 },
-  { name: "Matematik Qahramon", points: 1500 },
-  { name: "Super Talaba", points: 1600 },
-  { name: "Bilim Sohibi", points: 1700 },
-  { name: "O‘qish Qiroli", points: 1800 },
-  { name: "Hisob Qiroli", points: 2000 }
+  { name: "Boshlovchi", points: 100, img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
+  { name: "O‘rganuvchi", points: 150, img: "https://cdn-icons-png.flaticon.com/512/2921/2921222.png" },
+  { name: "Yangi Iqtidor", points: 200, img: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" },
+  { name: "Yaxshi Talaba", points: 300, img: "https://cdn-icons-png.flaticon.com/512/3135/3135789.png" },
+  { name: "Hisobchi", points: 400, img: "https://cdn-icons-png.flaticon.com/512/2829/2829726.png" },
+  { name: "Matematik", points: 500, img: "https://cdn-icons-png.flaticon.com/512/2830/2830229.png" },
+  { name: "Ustoz", points: 600, img: "https://cdn-icons-png.flaticon.com/512/3135/3135784.png" },
+  { name: "Aqlli Bola", points: 700, img: "https://cdn-icons-png.flaticon.com/512/921/921071.png" },
+  { name: "A’lochi", points: 800, img: "https://cdn-icons-png.flaticon.com/512/2583/2583344.png" },
+  { name: "Qiziqqon", points: 900, img: "https://cdn-icons-png.flaticon.com/512/1828/1828911.png" },
+  { name: "Kichik Ustoz", points: 1000, img: "https://cdn-icons-png.flaticon.com/512/1995/1995574.png" },
+  { name: "Qobiliyatli", points: 1100, img: "https://cdn-icons-png.flaticon.com/512/765/765613.png" },
+  { name: "Intiluvchan", points: 1200, img: "https://cdn-icons-png.flaticon.com/512/1998/1998755.png" },
+  { name: "Aqliy Yulduz", points: 1300, img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
+  { name: "Hisob Ustasi", points: 1400, img: "https://cdn-icons-png.flaticon.com/512/2829/2829733.png" },
+  { name: "Matematik Qahramon", points: 1500, img: "https://cdn-icons-png.flaticon.com/512/3135/3135773.png" },
+  { name: "Super Talaba", points: 1600, img: "https://cdn-icons-png.flaticon.com/512/4899/4899778.png" },
+  { name: "Bilim Sohibi", points: 1700, img: "https://cdn-icons-png.flaticon.com/512/3242/3242257.png" },
+  { name: "O‘qish Qiroli", points: 1800, img: "https://cdn-icons-png.flaticon.com/512/3135/3135772.png" },
+  { name: "Hisob Qiroli", points: 2000, img: "https://cdn-icons-png.flaticon.com/512/3135/3135787.png" }
 ];
 
+// Foydalanuvchi ma'lumotlari
 let userData = JSON.parse(localStorage.getItem('userData')) || {
   name:'O‘quvchi',
-  img:'https://cdn-icons-png.flaticon.com/512/149/149071.png',
   points:100
 };
 
+// Hozirgi daraja topish
+let currentLevel = levels[0];
+levels.forEach(lv=>{
+  if(userData.points >= lv.points) currentLevel = lv;
+});
+
+// HTML ga joylash
 document.getElementById('profileName').textContent = `Ism: ${userData.name}`;
 document.getElementById('profilePoints').textContent = `Ball: ${userData.points}`;
-let userLevel = levels[0].name;
-levels.forEach(lv=>{
-  if(userData.points >= lv.points) userLevel = lv.name;
-});
-document.getElementById('profileLevel').textContent = `${userLevel}`;
-document.getElementById('profileImg').src = userData.img;
+document.getElementById('profileLevel').textContent = `${currentLevel.name}`;
+const profileImg = document.getElementById('profileImg');
+profileImg.src = currentLevel.img;
+profileImg.alt = currentLevel.name;
 </script>
 
 </body>
-                                                         </html>
+</html>
